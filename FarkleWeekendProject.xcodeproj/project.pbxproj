@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		04633D491BC7103C003B4810 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D481BC7103C003B4810 /* main.m */; };
 		04633D4C1BC7103C003B4810 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D4B1BC7103C003B4810 /* AppDelegate.m */; };
-		04633D4F1BC7103C003B4810 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D4E1BC7103C003B4810 /* ViewController.m */; };
 		04633D521BC7103C003B4810 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04633D501BC7103C003B4810 /* Main.storyboard */; };
 		04633D541BC7103C003B4810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04633D531BC7103C003B4810 /* Assets.xcassets */; };
 		04633D571BC7103C003B4810 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04633D551BC7103C003B4810 /* LaunchScreen.storyboard */; };
 		04633D621BC7103C003B4810 /* FarkleWeekendProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D611BC7103C003B4810 /* FarkleWeekendProjectTests.m */; };
 		04633D6D1BC7103C003B4810 /* FarkleWeekendProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D6C1BC7103C003B4810 /* FarkleWeekendProjectUITests.m */; };
+		04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D7B1BC710D5003B4810 /* GameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; settings = {ASSET_TAGS = (); }; };
+		04633D8E1BC74D8A003B4810 /* LeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D8D1BC74D8A003B4810 /* LeftView.m */; settings = {ASSET_TAGS = (); }; };
+		04633D911BC74D98003B4810 /* RightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D901BC74D98003B4810 /* RightView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +42,6 @@
 		04633D481BC7103C003B4810 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04633D4A1BC7103C003B4810 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04633D4B1BC7103C003B4810 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04633D4D1BC7103C003B4810 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		04633D4E1BC7103C003B4810 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04633D511BC7103C003B4810 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04633D531BC7103C003B4810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04633D561BC7103C003B4810 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +52,14 @@
 		04633D681BC7103C003B4810 /* FarkleWeekendProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarkleWeekendProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04633D6C1BC7103C003B4810 /* FarkleWeekendProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarkleWeekendProjectUITests.m; sourceTree = "<group>"; };
 		04633D6E1BC7103C003B4810 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04633D7A1BC710D5003B4810 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = ../GameViewController.h; sourceTree = "<group>"; };
+		04633D7B1BC710D5003B4810 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = ../GameViewController.m; sourceTree = "<group>"; };
+		04633D801BC73AC7003B4810 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = ../Button.h; sourceTree = "<group>"; };
+		04633D811BC73AC7003B4810 /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Button.m; path = ../Button.m; sourceTree = "<group>"; };
+		04633D8C1BC74D8A003B4810 /* LeftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftView.h; sourceTree = "<group>"; };
+		04633D8D1BC74D8A003B4810 /* LeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftView.m; sourceTree = "<group>"; };
+		04633D8F1BC74D98003B4810 /* RightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightView.h; sourceTree = "<group>"; };
+		04633D901BC74D98003B4810 /* RightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +110,20 @@
 		04633D461BC7103C003B4810 /* FarkleWeekendProject */ = {
 			isa = PBXGroup;
 			children = (
+				04633D7A1BC710D5003B4810 /* GameViewController.h */,
+				04633D7B1BC710D5003B4810 /* GameViewController.m */,
 				04633D4A1BC7103C003B4810 /* AppDelegate.h */,
 				04633D4B1BC7103C003B4810 /* AppDelegate.m */,
-				04633D4D1BC7103C003B4810 /* ViewController.h */,
-				04633D4E1BC7103C003B4810 /* ViewController.m */,
 				04633D501BC7103C003B4810 /* Main.storyboard */,
+				04633D8C1BC74D8A003B4810 /* LeftView.h */,
+				04633D8D1BC74D8A003B4810 /* LeftView.m */,
+				04633D8F1BC74D98003B4810 /* RightView.h */,
+				04633D901BC74D98003B4810 /* RightView.m */,
 				04633D531BC7103C003B4810 /* Assets.xcassets */,
 				04633D551BC7103C003B4810 /* LaunchScreen.storyboard */,
 				04633D581BC7103C003B4810 /* Info.plist */,
+				04633D801BC73AC7003B4810 /* Button.h */,
+				04633D811BC73AC7003B4810 /* Button.m */,
 				04633D471BC7103C003B4810 /* Supporting Files */,
 			);
 			path = FarkleWeekendProject;
@@ -270,9 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04633D4F1BC7103C003B4810 /* ViewController.m in Sources */,
+				04633D8E1BC74D8A003B4810 /* LeftView.m in Sources */,
 				04633D4C1BC7103C003B4810 /* AppDelegate.m in Sources */,
+				04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */,
+				04633D911BC74D98003B4810 /* RightView.m in Sources */,
 				04633D491BC7103C003B4810 /* main.m in Sources */,
+				04633D821BC73AC7003B4810 /* Button.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  GameViewController.h
 //  FarkleWeekendProject
 //
 //  Created by Jedd Goble on 10/8/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface GameViewController : UIViewController
 
 @end
-

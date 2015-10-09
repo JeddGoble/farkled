@@ -1,25 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="CTd-WF-AMM">
+            <objects>
+                <viewController id="GnV-OW-vaN" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W60-Fl-uu5"/>
+                        <viewControllerLayoutGuide type="bottom" id="wqE-0r-HoB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1RD-ZI-ZqV">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tLP-GU-WYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="-80"/>
+        </scene>
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woodgraindark" translatesAutoresizingMaskIntoConstraints="NO" id="5XY-N7-pYl">
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvU-jI-sPs" customClass="LeftView">
+                                <rect key="frame" x="0.0" y="0.0" width="141" height="320"/>
+                                <color key="backgroundColor" red="0.77647058823529413" green="0.20784313725490194" blue="0.1764705882352941" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="AvU-jI-sPs" secondAttribute="height" multiplier="141:320" id="VC1-6y-iU6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FDA-wE-gM6" customClass="RightView">
+                                <rect key="frame" x="427" y="0.0" width="141" height="320"/>
+                                <color key="backgroundColor" red="0.77647058820000003" green="0.20784313730000001" blue="0.1764705882" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="FDA-wE-gM6" secondAttribute="height" multiplier="141:320" id="q6e-Uk-6qx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AvU-jI-sPs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="1WU-pK-vGS"/>
+                            <constraint firstItem="5XY-N7-pYl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FR5-r6-0io"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5XY-N7-pYl" secondAttribute="bottom" id="I5U-rt-JAh"/>
+                            <constraint firstItem="AvU-jI-sPs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="IE8-ox-CrL"/>
+                            <constraint firstItem="FDA-wE-gM6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="N6J-17-Lji"/>
+                            <constraint firstItem="5XY-N7-pYl" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Qs0-O1-ePP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5XY-N7-pYl" secondAttribute="trailing" constant="-20" id="XXe-3s-qmB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FDA-wE-gM6" secondAttribute="trailing" constant="-20" id="Zpk-88-Fhi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AvU-jI-sPs" secondAttribute="bottom" id="fTy-z6-5vS"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FDA-wE-gM6" secondAttribute="bottom" id="uzR-QS-tLi"/>
+                        </constraints>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="139" y="308"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="woodgraindark" width="1440" height="1050"/>
+    </resources>
 </document>
