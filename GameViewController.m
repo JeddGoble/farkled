@@ -8,20 +8,31 @@
 
 #import "GameViewController.h"
 #import "Button.h"
+#import "GameModel.h"
 
-@interface GameViewController () <ButtonDelegate>
+@interface GameViewController () <ButtonDelegate, UIDynamicAnimatorDelegate>
 @property (weak, nonatomic) IBOutlet UIView *leftView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
 @property (strong, nonatomic) NSArray *diceImageNames;
-@property (strong, nonatomic) NSSet *diceSet;
+@property (strong, nonatomic) NSCountedSet *diceSet;
 @property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (strong, nonatomic) NSTimer *diceChangeTimer;
 @property (nonatomic) NSTimeInterval timeInterval;
-@property (strong, nonatomic) UILabel *currentTurnScoreLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *currentScoreLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentFullTurnScoreLabel;
+
+@property (nonatomic) NSInteger currentScore;
 @property (nonatomic) BOOL diceOnBoard;
 @property (strong, nonatomic) IBOutlet Button *cashInButton;
 @property (strong, nonatomic) IBOutlet Button *rollButton;
-
+@property (strong, nonatomic) GameModel *gameModel;
+@property (strong, nonatomic) IBOutlet UILabel *farkleLabel;
+@property (nonatomic) BOOL farkleFound;
+@property (nonatomic) NSInteger currentFullTurnScore;
+@property (nonatomic) BOOL canRollAgain;
+@property (nonatomic) BOOL firstRoll;
+@property (strong, nonatomic) NSMutableArray *playerScores;
 
 
 
@@ -33,10 +44,16 @@
     [super viewDidLoad];
     
     self.diceOnBoard = NO;
+    self.farkleFound = NO;
+    self.firstRoll = YES;
+    self.canRollAgain = YES;
+    
+    self.currentFullTurnScore = 0;
     
     self.diceImageNames = [[NSArray alloc] initWithObjects:@"dice1", @"dice2", @"dice3", @"dice4", @"dice5", @"dice6", nil];
+    self.playerScores = [[NSMutableArray alloc] initWithObjects:@0, @0, nil];
     
-    
+    self.farkleLabel.hidden = YES;
 //    self.currentTurnScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(rollButton.frame.origin.x, self.view.frame.size.height / 2, 100.0, 50.0)];
 //    self.currentTurnScoreLabel.textAlignment = NSTextAlignmentCenter;
 //    self.currentTurnScoreLabel.text = @"150";
@@ -49,7 +66,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     self.cashInButton = [[Button alloc] initWithText:@"Cash In" andColor:OrangeColor andTextColor:BlueColor andFrame:self.cashInButton.frame];
-    [self.rightView addSubview:self.cashInButton];
+    [self.view addSubview:self.cashInButton];
     
     self.rollButton = [[Button alloc] initWithText:@"Roll" andColor:OrangeColor andTextColor:BlueColor andFrame:self.rollButton.frame];
     self.rollButton.layer.cornerRadius = self.rollButton.bounds.size.height/2.0;
@@ -73,7 +90,7 @@
     Button *diceSix = [[Button alloc] initWithImage:@"dice6" andFrame:startingPoint];
     
     
-    self.diceSet = [[NSSet alloc] initWithObjects:diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix, nil];
+    self.diceSet = [[NSCountedSet alloc] initWithObjects:diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix, nil];
     
     
     int i = 1;
@@ -108,25 +125,50 @@
     if (senderButton.tag == 0) {
         
     }
-    else if (senderButton.tag < 7) {
-        for (Button *dice in self.diceSet) {
-            if (dice.tag == senderButton.tag) {
-                if (dice.selected) {
-                    dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)]];
-                } else {
+    else if (senderButton.tag < 7 && !self.farkleFound) {
+        [self diceTapped:senderButton];
+    } else if (senderButton.tag == 7 && !self.farkleFound) {
+        [self rollDice];
+    } else if (senderButton.tag == 8) {
+        [self cashIn];
+    }
+}
+
+
+
+
+- (void) diceTapped:(UIView *)senderButton {
+    for (Button *dice in self.diceSet) {
+        if (dice.tag == senderButton.tag) {
+            if (dice.selected) {
+                dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)]];
+                dice.selected = NO;
+            } else {
                 dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:[NSString stringWithFormat:@"%@inverted", dice.backgroundImage]] scaledToSize:CGSizeMake(50.0, 50.0)]];
-                }
-                dice.selected = !dice.selected;
+                dice.selected = YES;
             }
         }
     }
-        
-    else if (senderButton.tag == 7) {
-        [self rollDice];
-    }
     
+    self.gameModel = [[GameModel alloc] init];
+    self.currentScore = [self.gameModel countScore:self.diceSet forAll:NO];
+    self.currentScoreLabel.text = [NSString stringWithFormat:@"%ld", (long)self.currentScore];
+    
+    if (!self.farkleFound) {
+        self.rollButton.buttonLabel.text = @"Roll Again";
+        self.canRollAgain = YES;
+    }
+
+}
+
+
+
+- (void) cashIn {
     
 }
+
+
+
 
 - (void) rollDice {
     
@@ -137,10 +179,34 @@
 //    int width = self.view.frame.size.width - (self.leftView.bounds.size.width * 2);
 //    int height = self.view.frame.size.height;
     
+    
+    if (!self.firstRoll) {
+        NSCountedSet *tempSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
+        
+            for (Button *dice in tempSet) {
+                if (dice.selected) {
+                    [self.diceSet removeObject:dice];
+                    dice.hidden = YES;
+                }
+            }
+        self.currentFullTurnScore = self.currentFullTurnScore + self.currentScore;
+        self.currentScore = 0;
+        
+        self.currentFullTurnScoreLabel.text = [NSString stringWithFormat:@"%ld", (long)self.currentFullTurnScore];
+        self.currentScoreLabel.text = [NSString stringWithFormat:@"%ld", (long)self.currentScore];
+    }
+
+    
+    self.diceOnBoard = YES;
+    
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    self.dynamicAnimator.delegate = self;
+    
     UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:[self.diceSet allObjects]];
     [collisionBehavior addItem:self.leftView];
     [collisionBehavior addItem:self.rightView];
+    
     collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     [self.dynamicAnimator addBehavior:collisionBehavior];
     
@@ -182,15 +248,30 @@
     self.timeInterval = 0.2;
     self.diceChangeTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(diceSwitchImage) userInfo:nil repeats:YES];
     
+    self.firstRoll = NO;
     
     
 }
 
+//Once the dice stop moving, check for a farkle
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {
+    self.gameModel = [[GameModel alloc] init];
+    
+    if ([self.gameModel countScore:self.diceSet forAll:YES] == 0) {
+        self.farkleLabel.hidden = NO;
+        [self.view bringSubviewToFront:self.farkleLabel];
+        self.farkleFound = YES;
+        self.canRollAgain = NO;
+    }
+}
+
+//Toggle through random dice sides while dice are being rolled
 - (void) diceSwitchImage {
     for (Button *dice in self.diceSet) {
         int random = arc4random_uniform(6);
-        dice.currentNumber = random;
+        dice.currentNumber = [NSNumber numberWithInt:(random + 1)];
         dice.backgroundImage = self.diceImageNames[random];
+        
         UIImage *newImage = [[UIImage alloc] init];
         newImage = [dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)];
         dice.backgroundColor = [UIColor colorWithPatternImage:newImage];

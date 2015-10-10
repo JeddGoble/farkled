@@ -24,12 +24,12 @@
         
 
         
-        UILabel *titleText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-        titleText.textAlignment = NSTextAlignmentCenter;
-        titleText.text = text;
-        titleText.textColor = [self setColor:textColor];
+        self.buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        self.buttonLabel.textAlignment = NSTextAlignmentCenter;
+        self.buttonLabel.text = text;
+        self.buttonLabel.textColor = [self setColor:textColor];
         
-        [self addSubview:titleText];
+        [self addSubview:self.buttonLabel];
         
         self.selected = NO;
         

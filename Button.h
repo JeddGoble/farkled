@@ -40,7 +40,8 @@ typedef enum Color  {
 @property (nonatomic) CGPoint endCoordinates;
 @property (nonatomic, assign) id <ButtonDelegate> delegate;
 @property (nonatomic) BOOL selected;
-@property (nonatomic) int currentNumber;
+@property (nonatomic) NSNumber *currentNumber;
+@property (strong, nonatomic) UILabel *buttonLabel;
 
 - (UIView *) initWithText:(NSString *)text andColor:(ColorType)mainColor andTextColor:(ColorType)textColor andFrame:(CGRect)originAndBounds;
 
