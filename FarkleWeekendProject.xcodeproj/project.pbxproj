@@ -16,8 +16,6 @@
 		04633D6D1BC7103C003B4810 /* FarkleWeekendProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D6C1BC7103C003B4810 /* FarkleWeekendProjectUITests.m */; };
 		04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D7B1BC710D5003B4810 /* GameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; settings = {ASSET_TAGS = (); }; };
-		04633D8E1BC74D8A003B4810 /* LeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D8D1BC74D8A003B4810 /* LeftView.m */; settings = {ASSET_TAGS = (); }; };
-		04633D911BC74D98003B4810 /* RightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D901BC74D98003B4810 /* RightView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,10 +54,6 @@
 		04633D7B1BC710D5003B4810 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = ../GameViewController.m; sourceTree = "<group>"; };
 		04633D801BC73AC7003B4810 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = ../Button.h; sourceTree = "<group>"; };
 		04633D811BC73AC7003B4810 /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Button.m; path = ../Button.m; sourceTree = "<group>"; };
-		04633D8C1BC74D8A003B4810 /* LeftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftView.h; sourceTree = "<group>"; };
-		04633D8D1BC74D8A003B4810 /* LeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftView.m; sourceTree = "<group>"; };
-		04633D8F1BC74D98003B4810 /* RightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightView.h; sourceTree = "<group>"; };
-		04633D901BC74D98003B4810 /* RightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +109,6 @@
 				04633D4A1BC7103C003B4810 /* AppDelegate.h */,
 				04633D4B1BC7103C003B4810 /* AppDelegate.m */,
 				04633D501BC7103C003B4810 /* Main.storyboard */,
-				04633D8C1BC74D8A003B4810 /* LeftView.h */,
-				04633D8D1BC74D8A003B4810 /* LeftView.m */,
-				04633D8F1BC74D98003B4810 /* RightView.h */,
-				04633D901BC74D98003B4810 /* RightView.m */,
 				04633D531BC7103C003B4810 /* Assets.xcassets */,
 				04633D551BC7103C003B4810 /* LaunchScreen.storyboard */,
 				04633D581BC7103C003B4810 /* Info.plist */,
@@ -222,6 +212,7 @@
 				TargetAttributes = {
 					04633D431BC7103C003B4810 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = YUYQ7F3X7U;
 					};
 					04633D5C1BC7103C003B4810 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -285,10 +276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04633D8E1BC74D8A003B4810 /* LeftView.m in Sources */,
 				04633D4C1BC7103C003B4810 /* AppDelegate.m in Sources */,
 				04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */,
-				04633D911BC74D98003B4810 /* RightView.m in Sources */,
 				04633D491BC7103C003B4810 /* main.m in Sources */,
 				04633D821BC73AC7003B4810 /* Button.m in Sources */,
 			);
@@ -429,10 +418,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FarkleWeekendProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.FarkleWeekendProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -440,10 +432,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FarkleWeekendProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.FarkleWeekendProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -514,6 +509,7 @@
 				04633D731BC7103C003B4810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04633D741BC7103C003B4810 /* Build configuration list for PBXNativeTarget "FarkleWeekendProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +518,7 @@
 				04633D761BC7103C003B4810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04633D771BC7103C003B4810 /* Build configuration list for PBXNativeTarget "FarkleWeekendProjectUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +527,7 @@
 				04633D791BC7103C003B4810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

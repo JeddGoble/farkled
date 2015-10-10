@@ -15,6 +15,16 @@ typedef enum Color  {
     ClearColor
 } ColorType;
 
+
+@class Button;
+
+@protocol ButtonDelegate <NSObject>
+
+- (void) buttonPressed:(UITapGestureRecognizer *)senderButton;
+
+@end
+
+
 @interface Button : UIView
 
 
@@ -25,10 +35,20 @@ typedef enum Color  {
 @property (nonatomic) ColorType borderColor;
 @property (nonatomic) CGRect *originAndBounds;
 @property (strong, nonatomic) NSString *backgroundImage;
+@property (strong, nonatomic) NSString *backgroundImageInverted;
+@property (nonatomic) CGPoint startingCoordinates;
+@property (nonatomic) CGPoint endCoordinates;
+@property (nonatomic, assign) id <ButtonDelegate> delegate;
+@property (nonatomic) BOOL selected;
+@property (nonatomic) int currentNumber;
 
 - (UIView *) initWithText:(NSString *)text andColor:(ColorType)mainColor andTextColor:(ColorType)textColor andFrame:(CGRect)originAndBounds;
 
 - (UIView *) initWithImage:(NSString *)imageName andFrame:(CGRect)originAndBounds;
+
+- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize;
+
+- (UIColor *) setColor:(ColorType)paletteColor;
 
 
 @end

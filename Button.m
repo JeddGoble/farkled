@@ -31,11 +31,18 @@
         
         [self addSubview:titleText];
         
+        self.selected = NO;
+        
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(3.0, 3.0);
         self.layer.shadowOpacity = 0.4;
         self.layer.shadowRadius = 5.0;
+        
+        
+        UITapGestureRecognizer *buttonTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButtonTapped:)];
+        
+        [self addGestureRecognizer:buttonTapGestureRecognizer];
         
     }
     
@@ -43,6 +50,11 @@
     
     return self;
 }
+
+- (void) onButtonTapped:(UITapGestureRecognizer *)sender {
+    [self.delegate buttonPressed:sender];
+}
+
 
 
 - (UIView *) initWithImage:(NSString *)imageName andFrame:(CGRect)originAndBounds {
@@ -56,14 +68,15 @@
         imageForResize = [UIImage imageNamed:imageName];
         
         UIImage *resizedImage = [[UIImage alloc] init];
-        resizedImage = [self imageWithImage:[UIImage imageNamed:imageName] scaledToSize:CGSizeMake(originAndBounds.size.width, originAndBounds.size.height)];
-        
+        resizedImage = [self imageForScaling:[UIImage imageNamed:imageName] scaledToSize:CGSizeMake(originAndBounds.size.width, originAndBounds.size.height)];
         self.backgroundColor = [UIColor colorWithPatternImage:resizedImage];
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(3.0, 3.0);
         self.layer.shadowOpacity = 0.4;
         self.layer.shadowRadius = 5.0;
+        
+        self.selected = NO;
         
     }
     
@@ -88,11 +101,17 @@
     
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize {
     UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
     [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    UITapGestureRecognizer *buttonTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButtonTapped:)];
+    
+    [self addGestureRecognizer:buttonTapGestureRecognizer];
+    
+    
     return newImage;
 }
 
