@@ -23,13 +23,15 @@
     //If checking just selected, create a set of only those dice that have been selected by the user
     if (!scoreCheckYesOrNo) {
         for (Button *dice in diceSet) {
-            if (dice.selected) {
+            if (dice.selected && dice.dieInPlay) {
                 [selectedSet addObject:dice.currentNumber];
             }
         }
     } else {
         for (Button *dice in diceSet) {
+            if (dice.dieInPlay) {
             [selectedSet addObject:dice.currentNumber];
+            }
         }
     }
     

@@ -9,12 +9,14 @@
 #import "GameViewController.h"
 #import "Button.h"
 #import "GameModel.h"
+#import "Player.h"
 
 @interface GameViewController () <ButtonDelegate, UIDynamicAnimatorDelegate>
 @property (weak, nonatomic) IBOutlet UIView *leftView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
 @property (strong, nonatomic) NSArray *diceImageNames;
 @property (strong, nonatomic) NSCountedSet *diceSet;
+@property (strong, nonatomic) NSCountedSet *masterDiceSet;
 @property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (strong, nonatomic) NSTimer *diceChangeTimer;
 @property (nonatomic) NSTimeInterval timeInterval;
@@ -32,13 +34,19 @@
 @property (nonatomic) NSInteger currentFullTurnScore;
 @property (nonatomic) BOOL canRollAgain;
 @property (nonatomic) BOOL firstRoll;
-@property (strong, nonatomic) NSMutableArray *playerScores;
-
+@property (strong, nonatomic) NSMutableArray *players;
+@property (nonatomic) NSInteger whosTurn;
 
 
 @end
 
 @implementation GameViewController
+
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,10 +56,21 @@
     self.firstRoll = YES;
     self.canRollAgain = YES;
     
+    self.whosTurn = 0;
     self.currentFullTurnScore = 0;
     
     self.diceImageNames = [[NSArray alloc] initWithObjects:@"dice1", @"dice2", @"dice3", @"dice4", @"dice5", @"dice6", nil];
-    self.playerScores = [[NSMutableArray alloc] initWithObjects:@0, @0, nil];
+    
+    Player *playerOne = [[Player alloc] init];
+    playerOne.playerName = @"Joe";
+    playerOne.playerNumber = 1;
+    playerOne.playerScore = 0;
+    Player *playerTwo = [[Player alloc] init];
+    playerTwo.playerName = @"Sally";
+    playerTwo.playerNumber = 1;
+    playerTwo.playerScore = 0;
+    
+    self.players = [[NSMutableArray alloc] initWithObjects:playerOne, playerTwo, nil];
     
     self.farkleLabel.hidden = YES;
 //    self.currentTurnScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(rollButton.frame.origin.x, self.view.frame.size.height / 2, 100.0, 50.0)];
@@ -63,17 +82,25 @@
     
 }
 
+
+
 - (void)viewDidAppear:(BOOL)animated {
-    
-    self.cashInButton = [[Button alloc] initWithText:@"Cash In" andColor:OrangeColor andTextColor:BlueColor andFrame:self.cashInButton.frame];
-    [self.view addSubview:self.cashInButton];
     
     self.rollButton = [[Button alloc] initWithText:@"Roll" andColor:OrangeColor andTextColor:BlueColor andFrame:self.rollButton.frame];
     self.rollButton.layer.cornerRadius = self.rollButton.bounds.size.height/2.0;
     self.rollButton.tag = 7;
-    self.rollButton.delegate = self;
     [self.view addSubview:self.rollButton];
     
+    Button *backButton = [[Button alloc] initWithImage:@"backarrow" andFrame:CGRectMake(20.0, 25.0, 70.0, 40.0)];
+    backButton.tag = 8;
+    [self.view addSubview:backButton];
+    backButton.delegate = self;
+    
+    self.cashInButton = [[Button alloc] initWithText:@"Cash In" andColor:OrangeColor andTextColor:BlueColor andFrame:self.cashInButton.frame];
+    [self.view addSubview:self.cashInButton];
+    [self.view bringSubviewToFront:self.cashInButton];
+    self.cashInButton.tag = 9;
+
     
     CGRect startingPoint = CGRectMake(self.rollButton.frame.origin.x - 100, self.rollButton.frame.origin.y + 50, 50, 50);
     
@@ -92,7 +119,6 @@
     
     self.diceSet = [[NSCountedSet alloc] initWithObjects:diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix, nil];
     
-    
     int i = 1;
     
     for (Button *dice in self.diceSet) {
@@ -104,18 +130,40 @@
     }
     
     
-    Button *backButton = [[Button alloc] initWithImage:@"backarrow" andFrame:CGRectMake(20.0, 25.0, 70.0, 40.0)];
-    backButton.tag = 8;
-    [self.view addSubview:backButton];
-    backButton.delegate = self;
+    self.masterDiceSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
     
     
+    
+    [self resetDiceAndSet];
+
 }
 
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
+- (void) resetDiceAndSet {
+    self.rollButton.buttonLabel.text = @"Roll";
+    self.farkleLabel.hidden = YES;
+    
+    self.cashInButton.delegate = self;
+    self.rollButton.delegate = self;
+    
+    self.diceSet = [[NSCountedSet alloc] initWithSet:self.masterDiceSet];
+    
+    
+    
+    
+    for (Button *dice in self.diceSet) {
+        dice.hidden = YES;
+        dice.delegate = self;
+        dice.dieInPlay = YES;
+        dice.selected = NO;
+        dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)]];
+        
+    }
+    self.firstRoll = YES;
+    
+    self.currentFullTurnScoreLabel.text = @"0";
+    self.currentScoreLabel.text = @"0";
+    
+    
 }
 
 - (void) buttonPressed:(UITapGestureRecognizer *)sender {
@@ -123,17 +171,17 @@
     UIView *senderButton = sender.view;
     
     if (senderButton.tag == 0) {
-        
     }
     else if (senderButton.tag < 7 && !self.farkleFound) {
         [self diceTapped:senderButton];
     } else if (senderButton.tag == 7 && !self.farkleFound) {
         [self rollDice];
-    } else if (senderButton.tag == 8) {
+    } else if (senderButton.tag == 9 && !self.farkleFound) {
         [self cashIn];
+    } else {
+        NSLog(@"User tapping elsewhere.");
     }
 }
-
 
 
 
@@ -164,6 +212,28 @@
 
 
 - (void) cashIn {
+    
+    self.currentFullTurnScore = self.currentFullTurnScore + self.currentScore;
+    
+    NSInteger newPlayerScore;
+    Player *lastTurnPlayer = [[Player alloc] init];
+    lastTurnPlayer = [self.players objectAtIndex:(int)self.whosTurn];
+    lastTurnPlayer.playerScore = lastTurnPlayer.playerScore + newPlayerScore;
+    
+    
+    self.currentFullTurnScore = 0;
+    self.currentScore = 0;
+    
+    if (self.whosTurn == self.players.count - 1) {
+        self.whosTurn = 0;
+    } else {
+        self.whosTurn = self.whosTurn + 1;
+    }
+    
+    
+    [self resetDiceAndSet];
+    
+    
     
 }
 

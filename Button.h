@@ -42,6 +42,7 @@ typedef enum Color  {
 @property (nonatomic) BOOL selected;
 @property (nonatomic) NSNumber *currentNumber;
 @property (strong, nonatomic) UILabel *buttonLabel;
+@property (nonatomic) BOOL dieInPlay;
 
 - (UIView *) initWithText:(NSString *)text andColor:(ColorType)mainColor andTextColor:(ColorType)textColor andFrame:(CGRect)originAndBounds;
 

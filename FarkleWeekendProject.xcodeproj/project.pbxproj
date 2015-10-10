@@ -17,6 +17,7 @@
 		04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D7B1BC710D5003B4810 /* GameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; settings = {ASSET_TAGS = (); }; };
 		046B9FE21BC89EA4009B21E5 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE11BC89EA4009B21E5 /* GameModel.m */; settings = {ASSET_TAGS = (); }; };
+		046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE41BC9A6A4009B21E5 /* Player.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		04633D811BC73AC7003B4810 /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Button.m; path = ../Button.m; sourceTree = "<group>"; };
 		046B9FE01BC89EA4009B21E5 /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
 		046B9FE11BC89EA4009B21E5 /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
+		046B9FE31BC9A6A4009B21E5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		046B9FE41BC9A6A4009B21E5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 			children = (
 				04633D7A1BC710D5003B4810 /* GameViewController.h */,
 				04633D7B1BC710D5003B4810 /* GameViewController.m */,
+				046B9FE31BC9A6A4009B21E5 /* Player.h */,
+				046B9FE41BC9A6A4009B21E5 /* Player.m */,
 				046B9FE01BC89EA4009B21E5 /* GameModel.h */,
 				046B9FE11BC89EA4009B21E5 /* GameModel.m */,
 				04633D4A1BC7103C003B4810 /* AppDelegate.h */,
@@ -285,6 +290,7 @@
 				04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */,
 				046B9FE21BC89EA4009B21E5 /* GameModel.m in Sources */,
 				04633D491BC7103C003B4810 /* main.m in Sources */,
+				046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */,
 				04633D821BC73AC7003B4810 /* Button.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -40,6 +40,16 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woodgraindark" translatesAutoresizingMaskIntoConstraints="NO" id="5XY-N7-pYl">
                                 <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Farkle!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYj-tD-90d">
+                                <rect key="frame" x="164" y="109" width="241" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="241" id="Eix-RA-UrO"/>
+                                    <constraint firstAttribute="height" constant="102" id="ltv-W2-bFS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <color key="textColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvU-jI-sPs">
                                 <rect key="frame" x="0.0" y="0.0" width="141" height="320"/>
                                 <color key="backgroundColor" red="0.77647058823529413" green="0.20784313725490194" blue="0.1764705882352941" alpha="0.25" colorSpace="calibratedRGB"/>
@@ -120,16 +130,6 @@
                                     <constraint firstAttribute="width" constant="116" id="Zpw-xt-fu4"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Farkle!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYj-tD-90d">
-                                <rect key="frame" x="164" y="109" width="241" height="102"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="241" id="Eix-RA-UrO"/>
-                                    <constraint firstAttribute="height" constant="102" id="ltv-W2-bFS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
-                                <color key="textColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

@@ -32,7 +32,7 @@
         [self addSubview:self.buttonLabel];
         
         self.selected = NO;
-        
+        self.dieInPlay = YES;
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(3.0, 3.0);
