@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *currentScoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *currentFullTurnScoreLabel;
+@property (strong, nonatomic) IBOutlet UILabel *winnerLabel;
 
 @property (nonatomic) NSInteger currentScore;
 @property (nonatomic) BOOL diceOnBoard;
@@ -36,6 +37,12 @@
 @property (nonatomic) BOOL firstRoll;
 @property (strong, nonatomic) NSMutableArray *players;
 @property (nonatomic) NSInteger whosTurn;
+@property (strong, nonatomic) IBOutlet Button *playerOneLabel;
+@property (strong, nonatomic) IBOutlet Button *playerTwoLabel;
+@property (strong, nonatomic) IBOutlet Button *playerThreeLabel;
+@property (strong, nonatomic) IBOutlet Button *playerFourLabel;
+@property (strong, nonatomic) IBOutlet Button *playAgainButton;
+@property (nonatomic) BOOL gameOver;
 
 
 @end
@@ -51,15 +58,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+}
+
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [self restartGame];
+
+}
+
+- (void) restartGame {
+    
     self.diceOnBoard = NO;
     self.farkleFound = NO;
     self.firstRoll = YES;
     self.canRollAgain = YES;
+    self.gameOver = NO;
     
     self.whosTurn = 0;
     self.currentFullTurnScore = 0;
     
     self.diceImageNames = [[NSArray alloc] initWithObjects:@"dice1", @"dice2", @"dice3", @"dice4", @"dice5", @"dice6", nil];
+    
+    
+    self.farkleLabel.hidden = YES;
+    self.winnerLabel.hidden = YES;
+    self.playAgainButton.hidden = YES;
+    
     
     Player *playerOne = [[Player alloc] init];
     playerOne.playerName = @"Joe";
@@ -72,19 +98,26 @@
     
     self.players = [[NSMutableArray alloc] initWithObjects:playerOne, playerTwo, nil];
     
-    self.farkleLabel.hidden = YES;
-//    self.currentTurnScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(rollButton.frame.origin.x, self.view.frame.size.height / 2, 100.0, 50.0)];
-//    self.currentTurnScoreLabel.textAlignment = NSTextAlignmentCenter;
-//    self.currentTurnScoreLabel.text = @"150";
-//    self.currentTurnScoreLabel.textColor = [rollButton setColor:BlueColor];
-//    [self.view addSubview:self.currentTurnScoreLabel];
+    NSString *playerOneNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerOne.playerName];
+    self.playerOneLabel = [[Button alloc] initWithText:playerOneNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerOneLabel.frame];
+    self.playerOneLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:self.playerOneLabel];
+    
+    NSString *playerTwoNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerTwo.playerName];
+    self.playerTwoLabel = [[Button alloc] initWithText:playerTwoNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerTwoLabel.frame];
+    self.playerTwoLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:self.playerTwoLabel];
+    
+    Button *buttonForColor = [[Button alloc] init];
+    
+    self.playerOneLabel.backgroundColor = [buttonForColor setColor:BlueColor];
+    self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
+    self.playerTwoLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
+    self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
     
     
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated {
+    self.playerThreeLabel.hidden = YES;
+    self.playerFourLabel.hidden = YES;
     
     self.rollButton = [[Button alloc] initWithText:@"Roll" andColor:OrangeColor andTextColor:BlueColor andFrame:self.rollButton.frame];
     self.rollButton.layer.cornerRadius = self.rollButton.bounds.size.height/2.0;
@@ -100,9 +133,9 @@
     [self.view addSubview:self.cashInButton];
     [self.view bringSubviewToFront:self.cashInButton];
     self.cashInButton.tag = 9;
-
     
-    CGRect startingPoint = CGRectMake(self.rollButton.frame.origin.x - 100, self.rollButton.frame.origin.y + 50, 50, 50);
+    
+    CGRect startingPoint = CGRectMake(self.view.center.x, self.view.center.y, 50, 50);
     
     Button *diceOne = [[Button alloc] initWithImage:@"dice6" andFrame:startingPoint];
     
@@ -135,8 +168,8 @@
     
     
     [self resetDiceAndSet];
-
 }
+
 
 - (void) resetDiceAndSet {
     self.rollButton.buttonLabel.text = @"Roll";
@@ -163,6 +196,17 @@
     self.currentFullTurnScoreLabel.text = @"0";
     self.currentScoreLabel.text = @"0";
     
+    Player *playerOne = [[Player alloc] init];
+    playerOne = [self.players objectAtIndex:0];
+    NSString *playerOneNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", playerOne.playerName, (long)playerOne.playerScore];
+    self.playerOneLabel.buttonLabel.text = playerOneNameAndScore;
+    
+    Player *playerTwo = [[Player alloc] init];
+    playerTwo = [self.players objectAtIndex:1];
+    NSString *playerTwoNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", playerTwo.playerName, (long)playerTwo.playerScore];
+    self.playerTwoLabel.buttonLabel.text = playerTwoNameAndScore;
+    
+    
     
 }
 
@@ -172,12 +216,14 @@
     
     if (senderButton.tag == 0) {
     }
-    else if (senderButton.tag < 7 && !self.farkleFound) {
+    else if (senderButton.tag < 7 && !self.farkleFound && !self.gameOver) {
         [self diceTapped:senderButton];
-    } else if (senderButton.tag == 7 && !self.farkleFound) {
+    } else if (senderButton.tag == 7 && !self.farkleFound && !self.gameOver) {
         [self rollDice];
-    } else if (senderButton.tag == 9 && !self.farkleFound) {
+    } else if (senderButton.tag == 9 && !self.farkleFound && !self.gameOver) {
         [self cashIn];
+    } else if (senderButton.tag == 10 && self.gameOver) {
+        [self restartGame];
     } else {
         NSLog(@"User tapping elsewhere.");
     }
@@ -215,14 +261,22 @@
     
     self.currentFullTurnScore = self.currentFullTurnScore + self.currentScore;
     
-    NSInteger newPlayerScore;
     Player *lastTurnPlayer = [[Player alloc] init];
     lastTurnPlayer = [self.players objectAtIndex:(int)self.whosTurn];
-    lastTurnPlayer.playerScore = lastTurnPlayer.playerScore + newPlayerScore;
+    lastTurnPlayer.playerScore = lastTurnPlayer.playerScore + self.currentFullTurnScore;
     
+    [self resetDiceAndSet];
+    
+    for (Player *player in self.players) {
+        if (player.playerScore >= 10000) {
+            [self gameOver:player.playerName];
+        }
+    }
     
     self.currentFullTurnScore = 0;
     self.currentScore = 0;
+    
+    Button *buttonForColor = [[Button alloc] init];
     
     if (self.whosTurn == self.players.count - 1) {
         self.whosTurn = 0;
@@ -230,10 +284,17 @@
         self.whosTurn = self.whosTurn + 1;
     }
     
-    
-    [self resetDiceAndSet];
-    
-    
+    if (self.whosTurn == 0) {
+        self.playerOneLabel.backgroundColor = [buttonForColor setColor:BlueColor];
+        self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
+        self.playerTwoLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
+        self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
+    } else {
+        self.playerOneLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
+        self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
+        self.playerTwoLabel.backgroundColor = [buttonForColor setColor:BlueColor];
+        self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
+    }
     
 }
 
@@ -332,7 +393,38 @@
         [self.view bringSubviewToFront:self.farkleLabel];
         self.farkleFound = YES;
         self.canRollAgain = NO;
+        
+        NSTimer *farkleOnScreenDelay = [[NSTimer alloc] init];
+        farkleOnScreenDelay = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(farkleDelayOver) userInfo:nil repeats:NO];
     }
+    
+}
+
+- (void) farkleDelayOver {
+    self.farkleLabel.hidden = YES;
+    self.farkleFound = NO;
+    
+    self.currentFullTurnScore = 0;
+    self.currentScore = 0;
+    
+    [self cashIn];
+    
+}
+
+- (void) gameOver:(NSString *)winnerName {
+    
+    self.gameOver = YES;
+    
+    self.winnerLabel.text = [NSString stringWithFormat:@"%@ Wins!", winnerName];
+    self.winnerLabel.hidden = NO;
+    
+    self.playAgainButton = [[Button alloc] initWithText:@"Play Again" andColor:OrangeColor andTextColor:BlueColor andFrame:self.playAgainButton.layer.frame];
+    self.playAgainButton.tag = 10;
+    self.playAgainButton.delegate = self;
+    self.playAgainButton.hidden = NO;
+    [self.view addSubview:self.playAgainButton];
+    
+    
 }
 
 //Toggle through random dice sides while dice are being rolled

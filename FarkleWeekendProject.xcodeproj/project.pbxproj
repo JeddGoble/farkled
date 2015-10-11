@@ -18,6 +18,7 @@
 		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; settings = {ASSET_TAGS = (); }; };
 		046B9FE21BC89EA4009B21E5 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE11BC89EA4009B21E5 /* GameModel.m */; settings = {ASSET_TAGS = (); }; };
 		046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE41BC9A6A4009B21E5 /* Player.m */; settings = {ASSET_TAGS = (); }; };
+		046B9FE81BCB11E5009B21E5 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE71BCB11E5009B21E5 /* MainMenuViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		046B9FE11BC89EA4009B21E5 /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
 		046B9FE31BC9A6A4009B21E5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		046B9FE41BC9A6A4009B21E5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		046B9FE61BCB11E5009B21E5 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		046B9FE71BCB11E5009B21E5 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				04633D4A1BC7103C003B4810 /* AppDelegate.h */,
 				04633D4B1BC7103C003B4810 /* AppDelegate.m */,
 				04633D501BC7103C003B4810 /* Main.storyboard */,
+				046B9FE61BCB11E5009B21E5 /* MainMenuViewController.h */,
+				046B9FE71BCB11E5009B21E5 /* MainMenuViewController.m */,
 				04633D531BC7103C003B4810 /* Assets.xcassets */,
 				04633D551BC7103C003B4810 /* LaunchScreen.storyboard */,
 				04633D581BC7103C003B4810 /* Info.plist */,
@@ -292,6 +297,7 @@
 				04633D491BC7103C003B4810 /* main.m in Sources */,
 				046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */,
 				04633D821BC73AC7003B4810 /* Button.m in Sources */,
+				046B9FE81BCB11E5009B21E5 /* MainMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
