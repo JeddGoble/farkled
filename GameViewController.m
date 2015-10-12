@@ -164,16 +164,18 @@
         i++;
     }
     
-    
-    self.masterDiceSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
+//    
+//    self.masterDiceSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
     
     
     
     [self resetDiceAndSet];
     
-    [UIView animateWithDuration:2.0 animations:^{
+    [UIView animateWithDuration:1.0 animations:^{
         self.loadingOverlay.alpha = 0.0;
     }];
+    
+    
 }
 
 
@@ -184,12 +186,14 @@
     self.cashInButton.delegate = self;
     self.rollButton.delegate = self;
     
-    self.diceSet = [[NSCountedSet alloc] initWithSet:self.masterDiceSet];
+//    self.diceSet = [[NSCountedSet alloc] initWithSet:self.masterDiceSet];
     
+    CGRect diceStartingPoint = CGRectMake(self.view.center.x, self.view.center.y, 50, 50);
     
     
     
     for (Button *dice in self.diceSet) {
+        dice.frame = diceStartingPoint;
         dice.hidden = YES;
         dice.delegate = self;
         dice.dieInPlay = YES;
@@ -197,6 +201,7 @@
         dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)]];
         
     }
+    
     self.firstRoll = YES;
     
     self.currentFullTurnScoreLabel.text = @"0";
@@ -211,10 +216,9 @@
     playerTwo = [self.players objectAtIndex:1];
     NSString *playerTwoNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", playerTwo.playerName, (long)playerTwo.playerScore];
     self.playerTwoLabel.buttonLabel.text = playerTwoNameAndScore;
-    
-    
-    
+
 }
+
 
 - (void) buttonPressed:(UITapGestureRecognizer *)sender {
     
@@ -231,7 +235,9 @@
         MainMenuViewController *mainMenuVC = (MainMenuViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
         [self presentViewController:mainMenuVC animated:YES completion:nil];
     } else if (senderButton.tag == 9 && !self.farkleFound && !self.gameOver) {
-        [self cashIn];
+//        [self selectedDiceSnapAnimation];
+        NSTimer *cashInTimer = [[NSTimer alloc] init];
+        cashInTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(cashIn) userInfo:nil repeats:NO];
     } else if (senderButton.tag == 10 && self.gameOver) {
         [self restartGame];
     } else {
@@ -313,32 +319,65 @@
 
 - (void) rollDice {
     
-//    CGRect diceLandingArea = CGRectMake(self.leftView.frame.size.width, 0.0, self.view.frame.size.width - (self.leftView.bounds.size.width * 2), self.view.frame.size.height);
-//    
-//    int originX = (int) roundf(self.leftView.frame.size.width);
-//    int originY = 0;
-//    int width = self.view.frame.size.width - (self.leftView.bounds.size.width * 2);
-//    int height = self.view.frame.size.height;
+    if (self.firstRoll) {
+        [self diceRollAnimation];
+    } else {
+//        [self selectedDiceSnapAnimation];
+//        NSTimer *rollTimer = [[NSTimer alloc] init];
+//        rollTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(diceRollAnimation) userInfo:nil repeats:NO];
+        [self diceRollAnimation];
+    }
     
+    
+    
+}
+
+- (void) selectedDiceSnapAnimation {
+
+    
+    [self.dynamicAnimator removeAllBehaviors];
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.dynamicAnimator.delegate = self;
+    
+    CGPoint point = CGPointMake(self.rollButton.center.x, self.rollButton.center.y);
+    
+    for (Button *dice in self.diceSet) {
+        if (dice.selected) {
+            UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:dice snapToPoint:point];
+            [self.dynamicAnimator addBehavior:snapBehavior];
+            [UIView animateWithDuration:1.0 animations:^{
+                dice.alpha = 0.0;
+            }];
+    
+        }
+    }
+}
+
+
+- (void) diceRollAnimation {
     
     if (!self.firstRoll) {
         NSCountedSet *tempSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
         
-            for (Button *dice in tempSet) {
-                if (dice.selected) {
-                    [self.diceSet removeObject:dice];
-                    dice.hidden = YES;
-                }
+        for (Button *dice in tempSet) {
+            if (dice.selected) {
+                [self.diceSet removeObject:dice];
+                dice.hidden = YES;
             }
+        }
+        
+        
         self.currentFullTurnScore = self.currentFullTurnScore + self.currentScore;
         self.currentScore = 0;
         
         self.currentFullTurnScoreLabel.text = [NSString stringWithFormat:@"%ld", (long)self.currentFullTurnScore];
         self.currentScoreLabel.text = [NSString stringWithFormat:@"%ld", (long)self.currentScore];
     }
-
+    
     
     self.diceOnBoard = YES;
+    
+    [self.dynamicAnimator removeAllBehaviors];
     
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     
@@ -360,9 +399,9 @@
     
     
     for (Button *dice in self.diceSet) {
-//        int xAxis = arc4random_uniform(width) + originX;
-//        int yAxis = arc4random_uniform(height);
-//        dice.endCoordinates = CGPointMake(xAxis, yAxis);
+        //        int xAxis = arc4random_uniform(width) + originX;
+        //        int yAxis = arc4random_uniform(height);
+        //        dice.endCoordinates = CGPointMake(xAxis, yAxis);
         
         dice.hidden = NO;
         
@@ -391,8 +430,10 @@
     
     self.firstRoll = NO;
     
+
     
 }
+
 
 //Once the dice stop moving, check for a farkle
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {

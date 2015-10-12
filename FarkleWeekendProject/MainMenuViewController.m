@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.numberOfPlayers = 0;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,8 +42,7 @@
 
 - (void)buttonPressed:(UITapGestureRecognizer *)senderButton {
         UIView *sender = senderButton.view;
-    
-    NSLog(@"Button tapped");
+
     
     if (sender.tag == 1) {
         

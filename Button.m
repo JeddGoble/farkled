@@ -22,7 +22,7 @@
         
         self.frame = originAndBounds;
         
-
+        
         
         self.buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         self.buttonLabel.textAlignment = NSTextAlignmentCenter;

@@ -21,6 +21,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="woodgraindark" translatesAutoresizingMaskIntoConstraints="NO" id="g3R-sH-Xs6">
                                 <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kS-eh-WOl">
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                                <color key="backgroundColor" red="0.77647058823529413" green="0.20784313725490194" blue="0.1764705882352941" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dice5offaxis" translatesAutoresizingMaskIntoConstraints="NO" id="yA2-BO-1I0">
                                 <rect key="frame" x="53" y="178" width="112" height="112"/>
                                 <constraints>
@@ -45,22 +49,6 @@
                                 <color key="textColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="400-ip-RQ4">
-                                <rect key="frame" x="224" y="249" width="121" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="121" id="8Yq-XV-hYw"/>
-                                    <constraint firstAttribute="height" constant="28" id="FPg-bV-n2M"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                    <segment title="4"/>
-                                </segments>
-                                <color key="tintColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="playerSegementedControlValueChanged:" destination="GnV-OW-vaN" eventType="valueChanged" id="rQC-ek-p4W"/>
-                                </connections>
-                            </segmentedControl>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlu-Rt-Bou" customClass="Button">
                                 <rect key="frame" x="226" y="151" width="116" height="61"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,10 +67,22 @@
                                 <color key="textColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kS-eh-WOl">
-                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                                <color key="backgroundColor" red="0.77647058823529413" green="0.20784313725490194" blue="0.1764705882352941" alpha="0.25" colorSpace="calibratedRGB"/>
-                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="400-ip-RQ4">
+                                <rect key="frame" x="224" y="249" width="121" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="8Yq-XV-hYw"/>
+                                    <constraint firstAttribute="height" constant="28" id="FPg-bV-n2M"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                    <segment title="4"/>
+                                </segments>
+                                <color key="tintColor" red="0.77647058823529413" green="0.45882352941176469" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="playerSegementedControlValueChanged:" destination="GnV-OW-vaN" eventType="valueChanged" id="rQC-ek-p4W"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
