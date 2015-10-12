@@ -42,6 +42,8 @@
 @property (strong, nonatomic) IBOutlet Button *playerTwoLabel;
 @property (strong, nonatomic) IBOutlet Button *playerThreeLabel;
 @property (strong, nonatomic) IBOutlet Button *playerFourLabel;
+@property (strong, nonatomic) NSMutableArray *playerLabelsArray;
+
 @property (strong, nonatomic) IBOutlet Button *playAgainButton;
 @property (nonatomic) BOOL gameOver;
 @property (strong, nonatomic) IBOutlet UIImageView *loadingOverlay;
@@ -89,37 +91,63 @@
     self.playAgainButton.hidden = YES;
     
     
+    self.players = [[NSMutableArray alloc] init];
+    self.playerLabelsArray = [[NSMutableArray alloc] init];
+    
     Player *playerOne = [[Player alloc] init];
-    playerOne.playerName = @"Joe";
-    playerOne.playerNumber = 1;
-    playerOne.playerScore = 0;
-    Player *playerTwo = [[Player alloc] init];
-    playerTwo.playerName = @"Sally";
-    playerTwo.playerNumber = 1;
-    playerTwo.playerScore = 0;
-    
-    self.players = [[NSMutableArray alloc] initWithObjects:playerOne, playerTwo, nil];
-    
+    playerOne.playerName = @"John";
+    [self.players addObject:playerOne];
     NSString *playerOneNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerOne.playerName];
     self.playerOneLabel = [[Button alloc] initWithText:playerOneNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerOneLabel.frame];
+    self.playerOneLabel.backgroundColor = [self.playerOneLabel setColor:BlueColor];
+    self.playerOneLabel.buttonLabel.textColor = [self.playerOneLabel setColor:OrangeColor];
     self.playerOneLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+    self.playerOneLabel.hidden = NO;
     [self.view addSubview:self.playerOneLabel];
+    [self.playerLabelsArray addObject:self.playerOneLabel];
     
+    Player *playerTwo = [[Player alloc] init];
+    playerTwo.playerName = @"Paul";
+    [self.players addObject:playerTwo];
     NSString *playerTwoNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerTwo.playerName];
     self.playerTwoLabel = [[Button alloc] initWithText:playerTwoNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerTwoLabel.frame];
     self.playerTwoLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+    self.playerOneLabel.hidden = NO;
     [self.view addSubview:self.playerTwoLabel];
+    [self.playerLabelsArray addObject:self.playerTwoLabel];
     
-    Button *buttonForColor = [[Button alloc] init];
+    if (self.numberOfPlayers >= 1) {
+        Player *playerThree = [[Player alloc] init];
+        playerThree.playerName = @"Ringo";
+        [self.players addObject:playerThree];
+        NSString *playerThreeNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerThree.playerName];
+        self.playerThreeLabel = [[Button alloc] initWithText:playerThreeNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerThreeLabel.frame];
+        self.playerThreeLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+        self.playerThreeLabel.hidden = NO;
+        [self.view addSubview:self.playerThreeLabel];
+        [self.playerLabelsArray addObject:self.playerThreeLabel];
+    }
     
-    self.playerOneLabel.backgroundColor = [buttonForColor setColor:BlueColor];
-    self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
-    self.playerTwoLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
-    self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
+    if (self.numberOfPlayers == 2) {
+        Player *playerFour = [[Player alloc] init];
+        playerFour.playerName = @"George";
+        [self.players addObject:playerFour];
+        NSString *playerFourNameAndScore = [[NSString alloc] initWithFormat:@"  %@: 0", playerFour.playerName];
+        self.playerFourLabel = [[Button alloc] initWithText:playerFourNameAndScore andColor:OrangeColor andTextColor:BlueColor andFrame:self.playerFourLabel.frame];
+        self.playerFourLabel.buttonLabel.textAlignment = NSTextAlignmentLeft;
+        self.playerFourLabel.hidden = NO;
+        [self.view addSubview:self.playerFourLabel];
+        [self.playerLabelsArray addObject:self.playerFourLabel];
+    }
     
+
     
-    self.playerThreeLabel.hidden = YES;
-    self.playerFourLabel.hidden = YES;
+    int i = 0;
+    for (Player *player in self.players) {
+        player.playerNumber = i;
+        player.playerScore = 0;
+        i++;
+    }
     
     self.rollButton = [[Button alloc] initWithText:@"Roll" andColor:OrangeColor andTextColor:BlueColor andFrame:self.rollButton.frame];
     self.rollButton.layer.cornerRadius = self.rollButton.bounds.size.height/2.0;
@@ -154,7 +182,7 @@
     
     self.diceSet = [[NSCountedSet alloc] initWithObjects:diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix, nil];
     
-    int i = 1;
+    i = 1;
     
     for (Button *dice in self.diceSet) {
         dice.tag = i;
@@ -164,14 +192,15 @@
         i++;
     }
     
-//    
-//    self.masterDiceSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
+    
+    self.masterDiceSet = [[NSCountedSet alloc] initWithSet:self.diceSet];
     
     
     
     [self resetDiceAndSet];
     
-    [UIView animateWithDuration:1.0 animations:^{
+    [self.view bringSubviewToFront:self.loadingOverlay];
+    [UIView animateWithDuration:0.7 animations:^{
         self.loadingOverlay.alpha = 0.0;
     }];
     
@@ -186,21 +215,24 @@
     self.cashInButton.delegate = self;
     self.rollButton.delegate = self;
     
-//    self.diceSet = [[NSCountedSet alloc] initWithSet:self.masterDiceSet];
+    self.diceSet = [[NSCountedSet alloc] initWithSet:self.masterDiceSet];
     
-    CGRect diceStartingPoint = CGRectMake(self.view.center.x, self.view.center.y, 50, 50);
-    
-    
+//    CGRect diceStartingPoint = CGRectMake(self.view.center.x, self.view.center.y, 50, 50);
+
     
     for (Button *dice in self.diceSet) {
-        dice.frame = diceStartingPoint;
+//        dice.frame = CGRectMake(self.view.center.x, self.view.center.y, 50, 50);
         dice.hidden = YES;
         dice.delegate = self;
         dice.dieInPlay = YES;
         dice.selected = NO;
         dice.backgroundColor = [UIColor colorWithPatternImage:[dice imageForScaling:[UIImage imageNamed:dice.backgroundImage] scaledToSize:CGSizeMake(50.0, 50.0)]];
         
+        
     }
+    
+    
+    
     
     self.firstRoll = YES;
     
@@ -236,8 +268,9 @@
         [self presentViewController:mainMenuVC animated:YES completion:nil];
     } else if (senderButton.tag == 9 && !self.farkleFound && !self.gameOver) {
 //        [self selectedDiceSnapAnimation];
-        NSTimer *cashInTimer = [[NSTimer alloc] init];
-        cashInTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(cashIn) userInfo:nil repeats:NO];
+//        NSTimer *cashInTimer = [[NSTimer alloc] init];
+//        cashInTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(cashIn) userInfo:nil repeats:NO];
+        [self cashIn];
     } else if (senderButton.tag == 10 && self.gameOver) {
         [self restartGame];
     } else {
@@ -292,24 +325,23 @@
     self.currentFullTurnScore = 0;
     self.currentScore = 0;
     
-    Button *buttonForColor = [[Button alloc] init];
-    
     if (self.whosTurn == self.players.count - 1) {
         self.whosTurn = 0;
     } else {
         self.whosTurn = self.whosTurn + 1;
     }
     
-    if (self.whosTurn == 0) {
-        self.playerOneLabel.backgroundColor = [buttonForColor setColor:BlueColor];
-        self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
-        self.playerTwoLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
-        self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
-    } else {
-        self.playerOneLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
-        self.playerOneLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
-        self.playerTwoLabel.backgroundColor = [buttonForColor setColor:BlueColor];
-        self.playerTwoLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
+    Button *buttonForColor = [[Button alloc] init];
+    
+    for (Button *playerLabel in self.playerLabelsArray) {
+        if ([self.playerLabelsArray indexOfObject:playerLabel] == self.whosTurn) {
+            playerLabel.backgroundColor = [buttonForColor setColor:BlueColor];
+            playerLabel.buttonLabel.textColor = [buttonForColor setColor:OrangeColor];
+        } else {
+            playerLabel.backgroundColor = [buttonForColor setColor:OrangeColor];
+            playerLabel.buttonLabel.textColor = [buttonForColor setColor:BlueColor];
+        }
+        
     }
     
 }
@@ -399,9 +431,6 @@
     
     
     for (Button *dice in self.diceSet) {
-        //        int xAxis = arc4random_uniform(width) + originX;
-        //        int yAxis = arc4random_uniform(height);
-        //        dice.endCoordinates = CGPointMake(xAxis, yAxis);
         
         dice.hidden = NO;
         

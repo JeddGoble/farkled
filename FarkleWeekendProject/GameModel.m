@@ -43,6 +43,9 @@
     BOOL fourFound = NO;
     BOOL twoFound = NO;
     
+    BOOL onesPairFound = NO;
+    BOOL fivesPairFound = NO;
+    
     //Search for 6 of a kind, 5 of a kind, etc
     for (int i = 1; i < 7; i++) {
         
@@ -67,8 +70,12 @@
             twoFound = YES;
         }
         
-        if (score > 0) {
-            keepSearching = NO;
+        if (score > 0 && i == 1) {
+            onesPairFound = YES;
+        }
+        
+        if (score > 0 && i == 5) {
+            fivesPairFound = YES;
         }
         
     }
@@ -94,10 +101,11 @@
     
     
     //If nothing found, just assign points for individual die
-    if (keepSearching) {
+    if (keepSearching && !onesPairFound) {
         NSUInteger ones = [selectedSet countForObject:@1];
-        score = 100 * (int)ones;
-        
+        score = score + (100 * (int)ones);
+    }
+    if (keepSearching && !fivesPairFound) {
         NSUInteger fives = [selectedSet countForObject:@5];
         score = score + (50 * (int)fives);
     }
