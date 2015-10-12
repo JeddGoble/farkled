@@ -239,15 +239,13 @@
     self.currentFullTurnScoreLabel.text = @"0";
     self.currentScoreLabel.text = @"0";
     
-    Player *playerOne = [[Player alloc] init];
-    playerOne = [self.players objectAtIndex:0];
-    NSString *playerOneNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", playerOne.playerName, (long)playerOne.playerScore];
-    self.playerOneLabel.buttonLabel.text = playerOneNameAndScore;
-    
-    Player *playerTwo = [[Player alloc] init];
-    playerTwo = [self.players objectAtIndex:1];
-    NSString *playerTwoNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", playerTwo.playerName, (long)playerTwo.playerScore];
-    self.playerTwoLabel.buttonLabel.text = playerTwoNameAndScore;
+    int i = 0;
+    for (Button *playerScoreLabel in self.playerLabelsArray) {
+        Player *currentPlayer = [self.players objectAtIndex:i];
+        NSString *playerNameAndScore = [[NSString alloc] initWithFormat:@"  %@: %ld", currentPlayer.playerName, (long)currentPlayer.playerScore];
+        playerScoreLabel.buttonLabel.text = playerNameAndScore;
+        i++;
+    }
 
 }
 
@@ -415,9 +413,25 @@
     
     self.dynamicAnimator.delegate = self;
     
+    
     UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:[self.diceSet allObjects]];
     [collisionBehavior addItem:self.leftView];
     [collisionBehavior addItem:self.rightView];
+    
+    
+    //Make the left and right views stable barriers
+    UIAttachmentBehavior *attachmentRightView = [[UIAttachmentBehavior alloc] initWithItem:self.rightView attachedToAnchor:self.rightView.center];
+    [self.dynamicAnimator addBehavior:attachmentRightView];
+    UIDynamicItemBehavior *rightViewBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.rightView]];
+    rightViewBehavior.allowsRotation = NO;
+    [self.dynamicAnimator addBehavior:rightViewBehavior];
+    
+    UIAttachmentBehavior *attachmentLeftView = [[UIAttachmentBehavior alloc] initWithItem:self.leftView attachedToAnchor:self.leftView.center];
+    [self.dynamicAnimator addBehavior:attachmentLeftView];
+    UIDynamicItemBehavior *leftViewBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.leftView]];
+    leftViewBehavior.allowsRotation = NO;
+    [self.dynamicAnimator addBehavior:leftViewBehavior];
+    
     
     collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     [self.dynamicAnimator addBehavior:collisionBehavior];
