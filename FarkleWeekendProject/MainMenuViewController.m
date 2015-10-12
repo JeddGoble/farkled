@@ -7,8 +7,12 @@
 //
 
 #import "MainMenuViewController.h"
+#import "Button.h"
+#import "GameViewController.h"
 
-@interface MainMenuViewController ()
+@interface MainMenuViewController () <ButtonDelegate>
+
+@property (strong, nonatomic) IBOutlet Button *playGameButton;
 
 @end
 
@@ -16,22 +20,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    
+    self.playGameButton = [[Button alloc] initWithText:@"Play" andColor:OrangeColor andTextColor:BlueColor andFrame:self.playGameButton.frame];
+    self.playGameButton.tag = 1;
+    self.playGameButton.delegate = self;
+    [self.view addSubview:self.playGameButton];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)playerSegementedControlValueChanged:(UISegmentedControl *)sender {
+    
+    self.numberOfPlayers = sender.selectedSegmentIndex;
+    
 }
-*/
+
+- (void)buttonPressed:(UITapGestureRecognizer *)senderButton {
+        UIView *sender = senderButton.view;
+    
+    NSLog(@"Button tapped");
+    
+    if (sender.tag == 1) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        GameViewController *gameView = (GameViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Game"];
+        gameView.numberOfPlayers = self.numberOfPlayers;
+        [self presentViewController:gameView animated:YES completion:nil];
+
+    }
+}
+
+
 
 @end

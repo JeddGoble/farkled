@@ -10,6 +10,7 @@
 #import "Button.h"
 #import "GameModel.h"
 #import "Player.h"
+#import "MainMenuViewController.h"
 
 @interface GameViewController () <ButtonDelegate, UIDynamicAnimatorDelegate>
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -43,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet Button *playerFourLabel;
 @property (strong, nonatomic) IBOutlet Button *playAgainButton;
 @property (nonatomic) BOOL gameOver;
+@property (strong, nonatomic) IBOutlet UIImageView *loadingOverlay;
 
 
 @end
@@ -168,6 +170,10 @@
     
     
     [self resetDiceAndSet];
+    
+    [UIView animateWithDuration:2.0 animations:^{
+        self.loadingOverlay.alpha = 0.0;
+    }];
 }
 
 
@@ -220,6 +226,10 @@
         [self diceTapped:senderButton];
     } else if (senderButton.tag == 7 && !self.farkleFound && !self.gameOver) {
         [self rollDice];
+    } else if (senderButton.tag == 8) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainMenuViewController *mainMenuVC = (MainMenuViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
+        [self presentViewController:mainMenuVC animated:YES completion:nil];
     } else if (senderButton.tag == 9 && !self.farkleFound && !self.gameOver) {
         [self cashIn];
     } else if (senderButton.tag == 10 && self.gameOver) {

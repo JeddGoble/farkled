@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface MainMenuViewController : UIViewController
+
+@property (nonatomic) NSInteger numberOfPlayers;
 
 @end

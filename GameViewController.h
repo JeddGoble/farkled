@@ -10,4 +10,6 @@
 
 @interface GameViewController : UIViewController
 
+@property (nonatomic) NSInteger numberOfPlayers;
+
 @end
