@@ -48,7 +48,6 @@
 @property (nonatomic) BOOL gameOver;
 @property (strong, nonatomic) IBOutlet UIImageView *loadingOverlay;
 
-
 @end
 
 @implementation GameViewController
@@ -230,8 +229,6 @@
         
         
     }
-    
-    
     
     
     self.firstRoll = YES;

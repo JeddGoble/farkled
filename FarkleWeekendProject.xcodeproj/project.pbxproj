@@ -14,11 +14,11 @@
 		04633D571BC7103C003B4810 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04633D551BC7103C003B4810 /* LaunchScreen.storyboard */; };
 		04633D621BC7103C003B4810 /* FarkleWeekendProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D611BC7103C003B4810 /* FarkleWeekendProjectTests.m */; };
 		04633D6D1BC7103C003B4810 /* FarkleWeekendProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D6C1BC7103C003B4810 /* FarkleWeekendProjectUITests.m */; };
-		04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D7B1BC710D5003B4810 /* GameViewController.m */; settings = {ASSET_TAGS = (); }; };
-		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; settings = {ASSET_TAGS = (); }; };
-		046B9FE21BC89EA4009B21E5 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE11BC89EA4009B21E5 /* GameModel.m */; settings = {ASSET_TAGS = (); }; };
-		046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE41BC9A6A4009B21E5 /* Player.m */; settings = {ASSET_TAGS = (); }; };
-		046B9FE81BCB11E5009B21E5 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE71BCB11E5009B21E5 /* MainMenuViewController.m */; settings = {ASSET_TAGS = (); }; };
+		04633D7C1BC710D5003B4810 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D7B1BC710D5003B4810 /* GameViewController.m */; };
+		04633D821BC73AC7003B4810 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 04633D811BC73AC7003B4810 /* Button.m */; };
+		046B9FE21BC89EA4009B21E5 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE11BC89EA4009B21E5 /* GameModel.m */; };
+		046B9FE51BC9A6A4009B21E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE41BC9A6A4009B21E5 /* Player.m */; };
+		046B9FE81BCB11E5009B21E5 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B9FE71BCB11E5009B21E5 /* MainMenuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -440,7 +440,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FarkleWeekendProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.FarkleWeekendProject;
+				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.Farkled;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -454,7 +454,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FarkleWeekendProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.FarkleWeekendProject;
+				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.Farkled;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
